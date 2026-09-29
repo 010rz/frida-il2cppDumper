@@ -234,13 +234,13 @@ exports.SoName = "libil2cpp.so";
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isNetProtect = exports.useSoInfo = exports.CSFileDir = exports.ZipOutCSFile = exports.OutCSFile = exports.DUMP_FILE_PATH = exports.path = exports.soName = exports.IOSDumpName = exports.UNITY_VER = exports.UnityVer = exports.pkg_name = void 0;
-exports.pkg_name = "com.zzonegame.aresvirus2.android";
+exports.pkg_name = "com.xingzuodaoshi.infinityUpgrade";
 exports.UnityVer = {
     V_2017_4_31f1: "2017.4.31f1",
     V_2018_4_36f1: "2018.4.36f1",
     V_2020: "2020",
 };
-exports.UNITY_VER = exports.UnityVer.V_2018_4_36f1;
+exports.UNITY_VER = exports.UnityVer.V_2020;
 exports.IOSDumpName = "UnityFramework";
 exports.soName = "libil2cpp.so";
 exports.path = "/data/data/" + exports.pkg_name;
@@ -249,7 +249,7 @@ exports.OutCSFile = true;
 exports.ZipOutCSFile = true;
 exports.CSFileDir = "/data/data/" + exports.pkg_name + "/files/Script";
 exports.useSoInfo = false;
-exports.isNetProtect = false;
+exports.isNetProtect = true;
 },{}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2361,6 +2361,10 @@ function main() {
         hooklinker_1.hooklinker.startByCtor("libil2cpp.so", false, function () {
             dumper_1.dumper.start();
         });
+        // already loaded (attach after start)
+        if (Process.findModuleByName("libil2cpp.so") != null) {
+            setTimeout(function () { dumper_1.dumper.start(); }, 1500);
+        }
     }
     else {
         dumper_1.dumper.start();
